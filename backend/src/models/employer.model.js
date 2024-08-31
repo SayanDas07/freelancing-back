@@ -1,9 +1,9 @@
 import mongoose, { Schema } from "mongoose";
+import { User } from "./user.model.js";
 
 const employerSchema = new Schema({
     companyName: {
-        type: String,
-        required: true
+        type: String
     },
     industry: {
         type: String
@@ -27,4 +27,4 @@ const employerSchema = new Schema({
     }
 })
 
-const Employer = User.discriminator('employer', employerSchema)
+export const Employer = User.discriminator('employer', employerSchema)
