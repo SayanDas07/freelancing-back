@@ -1,5 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
 
 const userSchema = new Schema({
     username: {
@@ -47,25 +49,22 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 
 
 userSchema.methods.generateAccessToken = function () {
-    return jwt.sign(
-        {
-            //payloads
-            _id: this._id,
-            username: this.username,
-            email: this.email,
-            fullName: this.fullName,
-
-        },
-        //secret key
-        process.env.ACCESS_TOKEN_SECRET,
-
-        {
-            //expiry
-            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
-        }
-    )
-
+    try {
+        return jwt.sign(
+            {
+                _id: this._id,
+                username: this.username,
+                email: this.email
+            },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '2d' }
+        );
+    } catch (error) {
+        console.error("Error generating access token:", error);
+        throw new Error("Failed to generate access token");
+    }
 }
+
 
 
 userSchema.methods.generateRefreshToken = function () {
@@ -75,7 +74,7 @@ userSchema.methods.generateRefreshToken = function () {
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+            expiresIn: '7d'
         }
     )
 
