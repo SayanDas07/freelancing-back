@@ -21,6 +21,14 @@ const uploadResume = asyncHandler(async (req, res) => {
         })
     }
 
+    const allowedMimeType = 'application/pdf';
+    if (filePath.mimetype !== allowedMimeType) {
+        return res.status(400).json({
+            message: "Invalid file type. Only PDF documents are allowed.",
+            success: false
+        });
+    }
+
     let resume;
 
     if (filePath) {
