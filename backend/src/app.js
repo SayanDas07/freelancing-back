@@ -23,4 +23,9 @@ import userRouter from './routes/user.routes.js';
 app.use('/api/v1/user', userRouter);
 //http://localhost:8000/api/v1/user/register
 
+import resumeRouter from './routes/resume.routes.js';
+
+app.use('/api/v1/resume', resumeRouter);
+//http://localhost:8000/api/v1/resume/upload-resume
+
 export { app };
