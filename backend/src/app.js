@@ -28,9 +28,19 @@ import resumeRouter from './routes/resume.routes.js';
 app.use('/api/v1/resume', resumeRouter);
 //http://localhost:8000/api/v1/resume/upload-resume
 
-import jobRouter from './routes/job.routes.js';
+import offerRouter from './routes/freelanceOffer.routes.js';
 
-app.use('/api/v1/job', jobRouter);
-//http://localhost:8000/api/v1/job/create-job
+app.use('/api/v1/offer', offerRouter);
+//http://localhost:8000/api/v1/offer/create-offer
+
+import applicationRouter from './routes/application.routes.js';
+
+app.use('/api/v1/application', applicationRouter);
+//http://localhost:8000/api/v1/application/apply
+
+import ratingRouter from './routes/rating.routes.js';
+
+app.use('/api/v1/rating', ratingRouter);
+//http://localhost:8000/api/v1/rating/rate
 
 export { app };
