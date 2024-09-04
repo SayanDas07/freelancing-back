@@ -60,7 +60,7 @@ userSchema.methods.generateAccessToken = function () {
                 email: this.email
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '2d' }
+            { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
         );
     } catch (error) {
         console.error("Error generating access token:", error);
@@ -76,7 +76,8 @@ userSchema.methods.generateRefreshToken = function () {
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: '7d'
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+
         }
     )
 
