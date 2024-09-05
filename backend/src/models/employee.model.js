@@ -34,28 +34,6 @@ const employeeSchema = new Schema({
     }],
 });
 
-employeeSchema.methods.updateAverageRating = async function () {
-    const reviews = await Review.find({ reviewee: this._id });
-    if (reviews.length === 0) {
-        this.averageRating = 0;
-        await this.save();
-        return;
-    }
-    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-    this.averageRating = totalRating / reviews.length;
-    await this.save();
-}
-
-employeeSchema.methods.assignJob = function (jobId) {
-    this.assignedJobs.push(jobId);
-    return this.save();
-};
-
-employeeSchema.methods.completeJob = function (jobId) {
-    this.completedJobs.push(jobId);
-    this.assignedJobs.pull(jobId);  // Optionally remove from assignedJobs
-    return this.save()
-}
 
 export const Employee = User.discriminator('employee', employeeSchema);
 

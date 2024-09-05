@@ -19,12 +19,7 @@ const employerSchema = new Schema({
     postedOffersPast: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'FreelancingOffer'
-    }],
-    //average rating of the employer gives by employees
-    averageRating: {
-        type: Number,
-        default: 0
-    }
+    }]
 })
 
 
